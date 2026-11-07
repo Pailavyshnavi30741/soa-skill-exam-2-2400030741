@@ -1,0 +1,73 @@
+package com.klef.soa.controller;
+
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.klef.soa.entity.InsuranceClaim;
+import com.klef.soa.service.InsuranceClaimService;
+
+@RestController
+@RequestMapping("/insuranceclaim")
+public class InsuranceClaimController
+{
+    @Autowired
+    private InsuranceClaimService service;
+    
+    @GetMapping("/")
+    public String home() {
+        return "Organic Farm Service is running...";
+    }
+
+    @PostMapping("/add")
+    public InsuranceClaim insertClaim(@RequestBody InsuranceClaim ic)
+    {
+        return service.addClaim(ic);
+    }
+
+    @PutMapping("/update")
+    public String updateClaim(@RequestBody InsuranceClaim ic)
+    {
+        return service.updateClaim(ic);
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public String deleteClaim(@PathVariable Long id)
+    {
+        return service.deleteClaim(id);
+    }
+
+    @GetMapping("/displayall")
+    public List<InsuranceClaim> displayAll()
+    {
+        return service.displayAll();
+    }
+
+    @GetMapping("/displaybyid/{id}")
+    public Optional<InsuranceClaim> displayById(@PathVariable Long id)
+    {
+        return service.displayById(id);
+    }
+
+    @GetMapping("/findbyname/{name}")
+    public List<InsuranceClaim> findByName(@PathVariable String name)
+    {
+        return service.findByName(name);
+    }
+
+    @GetMapping("/findbytype/{type}")
+    public List<InsuranceClaim> findByType(@PathVariable String type)
+    {
+        return service.findByType(type);
+    }
+}
