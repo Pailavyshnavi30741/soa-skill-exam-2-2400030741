@@ -1,5 +1,5 @@
-package com.klef.soa.controller;
 
+package com.klef.soa.controller;
 
 import java.util.List;
 import java.util.Optional;
@@ -19,55 +19,48 @@ import com.klef.soa.service.InsuranceClaimService;
 
 @RestController
 @RequestMapping("/insuranceclaim")
-public class InsuranceClaimController
-{
+public class InsuranceClaimController {
+
     @Autowired
     private InsuranceClaimService service;
-    
+
     @GetMapping("/")
     public String home() {
         return "Insurance Claim Project is running...";
     }
 
     @PostMapping("/add")
-    public InsuranceClaim insertClaim(@RequestBody InsuranceClaim ic)
-    {
+    public InsuranceClaim insertClaim(@RequestBody InsuranceClaim ic) {
         return service.addClaim(ic);
     }
 
     @PutMapping("/update")
-    public String updateClaim(@RequestBody InsuranceClaim ic)
-    {
+    public String updateClaim(@RequestBody InsuranceClaim ic) {
         return service.updateClaim(ic);
     }
 
     @DeleteMapping("/delete/{id}")
-    public String deleteClaim(@PathVariable Long id)
-    {
+    public String deleteClaim(@PathVariable Long id) {
         return service.deleteClaim(id);
     }
 
     @GetMapping("/displayall")
-    public List<InsuranceClaim> displayAll()
-    {
+    public List<InsuranceClaim> displayAll() {
         return service.displayAll();
     }
 
     @GetMapping("/displaybyid/{id}")
-    public Optional<InsuranceClaim> displayById(@PathVariable Long id)
-    {
+    public Optional<InsuranceClaim> displayById(@PathVariable Long id) {
         return service.displayById(id);
     }
 
     @GetMapping("/findbyname/{name}")
-    public List<InsuranceClaim> findByName(@PathVariable String name)
-    {
+    public List<InsuranceClaim> findByName(@PathVariable String name) {
         return service.findByName(name);
     }
 
     @GetMapping("/findbytype/{type}")
-    public List<InsuranceClaim> findByType(@PathVariable String type)
-    {
+    public List<InsuranceClaim> findByType(@PathVariable String type) {
         return service.findByType(type);
     }
 }
