@@ -1,0 +1,86 @@
+package com.klef.soa.test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.data.jpa.test.autoconfigure.DataJpaTest;
+import org.springframework.boot.jdbc.test.autoconfigure.AutoConfigureTestDatabase;
+
+import com.klef.soa.entity.InsuranceClaim;
+import com.klef.soa.repository.InsuranceClaimRepository;
+
+@DataJpaTest
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
+public class InsuranceClaimRepositoryTest
+{
+    @Autowired
+    private InsuranceClaimRepository repository;
+
+    @Test
+    void testFindAllClaims()
+    {
+        List<InsuranceClaim> claims = repository.findAll();
+        assertNotNull(claims);
+        assertFalse(claims.isEmpty());
+        System.out.println("Total Claims: " + claims.size());
+    }
+
+    @Test
+    void testFindById()
+    {
+        InsuranceClaim claim = repository.findAll().get(0);
+        Optional<InsuranceClaim> obj =
+                repository.findById(claim.getInsuranceClaimId());
+
+        assertTrue(obj.isPresent());
+        assertEquals(claim.getInsuranceClaimId(),
+                obj.get().getInsuranceClaimId());
+
+        System.out.println("Claim ID: " + obj.get().getInsuranceClaimId());
+        System.out.println("Claim Name: " + obj.get().getName());
+    }
+
+    @Test
+    void testFindByName()
+    {
+        InsuranceClaim claim = repository.findAll().get(0);
+
+        List<InsuranceClaim> claims =
+                repository.findByName(claim.getName());
+
+        assertNotNull(claims);
+        assertFalse(claims.isEmpty());
+
+        System.out.println("Claim Name: " + claims.get(0).getName());
+    }
+
+    
+
+    @Test
+    void testFindByType()
+    {
+        InsuranceClaim claim = repository.findAll().get(0);
+
+        List<InsuranceClaim> claims =
+                repository.findByType(claim.getType());
+
+        assertNotNull(claims);
+        assertFalse(claims.isEmpty());
+
+        System.out.println("Claim Type: " + claims.get(0).getType());
+    }
+
+    @Test
+    void testCount()
+    {
+        long count = repository.count();
+        System.out.println("Total Claims: " + count);
+    }
+}
