@@ -23,7 +23,7 @@ services:
       - microservices-network
 
   exam-service:
-    image: pailavyshnavi2/docekr-skill-exam-2400030741:latest
+    image: pailavyshnavi2/docker-skill-exam-2400030741:latest
     build:
       context: ./InsuranceClaimProject
       dockerfile: Dockerfile
